@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Save Order</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+<form method="POST" th:action="@{/orders}" th:object="${order}">
+    <h1>Save your order</h1>
+    <img th:src="@{/images/test.png}"/>
+    <a th:href="@{/createOrder}" id="another">Create another order</a><br/>
+    <div th:if="${#fields.hasErrors()}">
+ <span class="validationError">
+ Please correct the problems below and resubmit.
+ </span>
+    </div>
+
+    <h3>Deliver order to...</h3>
+    <label for="table">Table: </label>
+    <input type="text" th:field="*{table}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('table')}"
+          th:errors="*{table}">table error</span>
+    <br/>
+    <h3>Payment information</h3>
+    <label for="paymentType">Payment type: </label>
+    <input type="text" th:field="*{paymentType}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('paymentType')}"
+          th:errors="*{paymentType}">paymentType error</span>
+    <br/>
+
+    <input type="submit" value="Submit order"/>
+</form>
+</body>
+</html>
