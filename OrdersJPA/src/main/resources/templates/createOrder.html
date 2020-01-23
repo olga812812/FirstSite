@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Order</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+<h1>Create your order!</h1>
+<img th:src="@{/images/test.png}"/>
+<form method="POST" th:object="${order}">
+    <span class="validationError"
+          th:if="${#fields.hasErrors('components')}"
+          th:errors="*{components}">components error</span>
+    </br>
+    <div class="grid">
+        <div class="component-group" id="fruits">
+            <h3>Choose your fruit:</h3>
+            <div th:each="component : ${fruit}">
+                <input name="components" type="checkbox" th:value="${component.id}"
+                />
+                <span th:text="${component.name}">COMPONENT</span><br/>
+            </div>
+        </div>
+    </div>
+    <div class="component-group" id="snacks">
+        <h3>Pick your snack:</h3>
+        <div th:each="component : ${snack}">
+            <input name="components" type="checkbox" th:value="${component.id}" />
+            <span th:text="${component.name}">COMPONENT</span><br/>
+        </div>
+    </div>
+
+    <div class="component-group" id="drinks">
+        <h3>Choose your drink:</h3>
+        <div th:each="component : ${drinks}">
+            <input name="components" type="checkbox" th:value="${component.id}" />
+            <span th:text="${component.name}">COMPONENT</span><br/>
+        </div>
+    </div>
+    <div>
+        <h3>Name your order:</h3>
+        <input type="text" th:field="*{name}"/>
+        <span class="validationError"
+              th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}">name error</span>
+        <br/>
+        <button>Next</button>
+    </div>
+</form>
+</body>
+</html>
