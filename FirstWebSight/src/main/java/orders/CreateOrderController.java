@@ -1,22 +1,17 @@
 package orders;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 import orders.Component.Type;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
 
@@ -28,27 +23,32 @@ import javax.validation.Valid;
 public class CreateOrderController {
     private List<Component> components;
     private Map<String,?> map;
+    private final ComponentRepository componentRepo;
+
+
+    @Autowired
+    public CreateOrderController(ComponentRepository componentsRepo) {
+        this.componentRepo = componentsRepo;
+    }
+    @ModelAttribute(name="order")
+    public Order order(){
+        return new Order();
+    }
 
     @GetMapping
     public String showCreateOrderForm(Model model) {
         getOrderCompopents();
         addComponentTypesToModel(model);
-        model.addAttribute("order", new Order());
+       // model.addAttribute("order", new Order());
         map = model.asMap();
+        log.info("Processing map: " + map);
         return "createOrder";
     }
 
     private void getOrderCompopents() {
-            components = Arrays.asList(
-                new Component("1", "Apple", Type.FRUIT),
-                new  Component("2", "Orange", Type.FRUIT),
-                new  Component("3", "Cappucino", Type.DRINKS),
-                new  Component("4", "Latte", Type.DRINKS),
-                new  Component("5", "Chips", Type.SNACK),
-                new  Component("6", "Burger", Type.SNACK)
-        );
-
-    }
+            components = new ArrayList<>();
+            componentRepo.findAll().forEach(component->components.add(component));
+           }
 
     private void addComponentTypesToModel(Model model) {
         Type[] types  = Type.values();
@@ -58,13 +58,14 @@ public class CreateOrderController {
     }
 
     private List<Component> filterByType(List<Component> list, Type type) {
-        return list.stream().filter(x->x.getType().equals(type)).collect(Collectors.toList());
+        return list.stream().filter(component->component.getType().equals(type)).collect(Collectors.toList());
     }
 
     @PostMapping
     public String processOrder(@Valid Order order, Errors errors, Model model) {
         model.mergeAttributes(map);
-        if (errors.hasFieldErrors("name") || errors.hasFieldErrors("ingredients")) return "createOrder";
+        log.info("Processing order: " + order);
+        if (errors.hasFieldErrors("name") || errors.hasFieldErrors("components")) return "createOrder";
         log.info("Processing order: " + order);
         return "redirect:/orders/current";
     }
