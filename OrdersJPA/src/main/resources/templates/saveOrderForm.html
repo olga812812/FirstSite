@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Save Order</title>
-    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 <form method="POST" th:action="@{/orders}" th:object="${order}">
@@ -17,10 +17,10 @@
     </div>
 
     <h3>Deliver order to...</h3>
-    <label for="table">Table: </label>
-    <input type="text" th:field="*{table}"/>
+    <label for="orderTable">Table: </label>
+    <input type="text" th:field="*{orderTable}"/>
     <span class="validationError"
-          th:if="${#fields.hasErrors('table')}"
+          th:if="${#fields.hasErrors('orderTable')}"
           th:errors="*{table}">table error</span>
     <br/>
     <h3>Payment information</h3>

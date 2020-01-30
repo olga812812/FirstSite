@@ -1,4 +1,4 @@
-package orders;
+package orders.domain;
 
 import lombok.AccessLevel;
 import lombok.Data;

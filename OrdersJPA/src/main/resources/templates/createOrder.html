@@ -3,12 +3,12 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Order</title>
-    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 <h1>Create your order!</h1>
 <img th:src="@{/images/test.png}"/>
-<form method="POST" th:object="${order}">
+<form method="POST" th:action="@{/createOrder}" th:object="${order}">
     <span class="validationError"
           th:if="${#fields.hasErrors('components')}"
           th:errors="*{components}">components error</span>
@@ -17,8 +17,7 @@
         <div class="component-group" id="fruits">
             <h3>Choose your fruit:</h3>
             <div th:each="component : ${fruit}">
-                <input name="components" type="checkbox" th:value="${component.id}"
-                />
+                <input name="components" type="checkbox" th:value="${component.id}"/>
                 <span th:text="${component.name}">COMPONENT</span><br/>
             </div>
         </div>

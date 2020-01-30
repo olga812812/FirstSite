@@ -1,4 +1,4 @@
-package orders;
+package orders.domain;
 
 
 import lombok.Data;
@@ -25,6 +25,8 @@ public class Order {
     @OneToMany (targetEntity = Component.class)
     @NotNull(message="You must choose at least 1 order component")
     private List<Component> components = new ArrayList<>();
+    @ManyToOne
+    private User user;
 
     @Size(min=1, message="You must input table")
     private  String orderTable;

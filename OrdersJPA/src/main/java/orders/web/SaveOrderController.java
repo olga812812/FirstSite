@@ -1,13 +1,19 @@
-package orders;
+package orders.web;
 
 import lombok.extern.slf4j.Slf4j;
+import orders.data.OrderRepositoryInteface;
+import orders.data.UserRepositoryInterface;
+import orders.domain.Order;
+import orders.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @Slf4j
@@ -15,11 +21,10 @@ import javax.validation.Valid;
 @SessionAttributes("order")
 
 public class SaveOrderController {
-    private OrderRepositoryInteface orderRepo;
     @Autowired
-    public SaveOrderController(OrderRepositoryInteface orderRepo) {
-        this.orderRepo = orderRepo;
-    }
+    private UserRepositoryInterface userRepo;
+    @Autowired
+    private OrderRepositoryInteface orderRepo;
 
     @GetMapping("/current")
     public String saveOrderForm(Model model, @SessionAttribute("order") Order order) {
@@ -28,11 +33,12 @@ public class SaveOrderController {
     }
 
     @PostMapping
-    public String saveOrder(@Valid Order order, Errors errors){
-        if (errors.hasFieldErrors("table") || errors.hasFieldErrors("paymentType")) return "saveOrderForm";
+    public String saveOrder(@Valid Order order, Errors errors, @AuthenticationPrincipal User user){
+        if (errors.hasFieldErrors("ordertable") || errors.hasFieldErrors("paymentType")) return "saveOrderForm";
         log.info("Order ready for submitting: " + order);
+        order.setUser(user);
         Order savedOrder = orderRepo.save(order);
         log.info("Order submitted: " + savedOrder);
-        return "redirect:/";
+        return "redirect:/orderInfo";
     }
 }

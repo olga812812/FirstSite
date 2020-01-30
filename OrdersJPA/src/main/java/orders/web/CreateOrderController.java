@@ -1,8 +1,12 @@
-package orders;
+package orders.web;
 
 import lombok.extern.slf4j.Slf4j;
-import orders.Component.Type;
+import orders.data.ComponentRepositoryInterface;
+import orders.domain.Component;
+import orders.domain.Component.Type;
+import orders.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -24,7 +28,6 @@ public class CreateOrderController {
     private Map<String,?> map;
     private final ComponentRepositoryInterface componentRepo;
 
-
     @Autowired
     public CreateOrderController(ComponentRepositoryInterface componentsRepo) {
         this.componentRepo = componentsRepo;
@@ -36,7 +39,7 @@ public class CreateOrderController {
 
     @GetMapping
     public String showCreateOrderForm(Model model) {
-        getOrderCompopents();
+         getOrderCompopents();
         addComponentTypesToModel(model);
        // model.addAttribute("order", new Order());
         map = model.asMap();

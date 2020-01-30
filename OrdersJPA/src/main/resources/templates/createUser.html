@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taco Cloud</title>
+</head>
+<body>
+<h1>Create User</h1>
+<img th:src="@{/images/test.png}"/>
+<form method="POST" th:action="@{/createUser}" id="createUserForm" th:object="${user}">
+    <label for="username">Username: </label>
+    <input type="text"  th:field="*{username}"/><br/>
+    <label for="password">Password: </label>
+    <input type="password"  th:field="*{password}"/><br/>
+    <label for="fullname">Full name: </label>
+    <input type="text" th:field="*{fullName}"/><br/>
+    <input type="submit" value="CreateUser"/>
+</form>
+</body>
+</html>
