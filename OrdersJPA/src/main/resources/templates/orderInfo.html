@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your order information:</title>
+    <link rel="stylesheet"  th:href="@{/css/styles_orderInfo.css}" />
+</head>
+<body th:object="${order}">
+<h1>Order details: </h1>
+
+    <label for="orderId">Order id: </label>
+    <span id="orderId" th:text="${order.id}">name</span>
+<br/>
+    <label for="orderName">Order name: </label>
+    <span id="orderName" th:text="${order.name}">name</span>
+<br/>
+    <label for="orderComponents">Order components: </label>
+    <span id="orderComponents" th:text="${order.components}">name</span>
+<br/>
+    <label for="orderTable">Order table: </label>
+    <span id="orderTable" th:text="${order.orderTable}">name</span>
+<br/>
+    <label for="orderPaymentType">Order payment type: </label>
+    <span id="orderPaymentType" th:text="${order.paymentType}">name</span>
+<br/>
+    <label for="orderCreatedAt">Order created at: </label>
+    <span id="orderCreatedAt" th:text="${order.createdAt}">name</span>
+<br/>
+<label for="orderUser">Order created by: </label>
+<span id="orderUser" th:text="${order.user.username}">name</span>
+<br/>
+<p>
+<a th:href="@{/createOrder}">
+    <button type="button" name="Login">Create new order</button>
+</a>
+<br/>
+</p>
+<a th:href="@{/logout}">
+    <button type="button" name="Login">Logout</button>
+</a>
+
+
+
+</body>
+</html>

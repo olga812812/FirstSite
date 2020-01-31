@@ -1,0 +1,28 @@
+h1{
+color:  brown;
+text-align: center;
+font-size: 70px;
+}
+
+div {
+text-align: center;
+}
+
+p {
+text-align: center;
+}
+
+img{
+margin-right: 180px;
+}
+
+button {
+font-size: 20px;
+font-weight: bold;
+width: 120px;
+margin-right: 355px;
+}
+
+body{
+/*background-image: url('/images/cofix.jpg'); */
+}
