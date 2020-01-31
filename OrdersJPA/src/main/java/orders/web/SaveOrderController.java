@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -21,10 +22,14 @@ import java.security.Principal;
 @SessionAttributes("order")
 
 public class SaveOrderController {
-    @Autowired
+
     private UserRepositoryInterface userRepo;
-    @Autowired
     private OrderRepositoryInteface orderRepo;
+
+    public SaveOrderController (UserRepositoryInterface userRepo, OrderRepositoryInteface orderRepo) {
+        this.userRepo=userRepo;
+        this.orderRepo=orderRepo;
+    }
 
     @GetMapping("/current")
     public String saveOrderForm(Model model, @SessionAttribute("order") Order order) {

@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 
 public class CreateOrderController {
     private List<Component> components;
-    private Map<String,?> map;
     private final ComponentRepositoryInterface componentRepo;
 
     @Autowired
@@ -39,11 +38,9 @@ public class CreateOrderController {
 
     @GetMapping
     public String showCreateOrderForm(Model model) {
-         getOrderCompopents();
+        model.addAttribute("order", new Order());
+        getOrderCompopents();
         addComponentTypesToModel(model);
-       // model.addAttribute("order", new Order());
-        map = model.asMap();
-        log.info("Processing map: " + map);
         return "createOrder";
     }
 
@@ -65,7 +62,6 @@ public class CreateOrderController {
 
     @PostMapping
     public String processOrder(@Valid Order order, Errors errors, Model model) {
-        model.mergeAttributes(map);
         log.info("Processing order: " + order);
         if (errors.hasFieldErrors("name") || errors.hasFieldErrors("components")) return "createOrder";
         log.info("Processing order: " + order);
