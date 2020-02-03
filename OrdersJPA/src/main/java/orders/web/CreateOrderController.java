@@ -31,10 +31,6 @@ public class CreateOrderController {
     public CreateOrderController(ComponentRepositoryInterface componentsRepo) {
         this.componentRepo = componentsRepo;
     }
-    @ModelAttribute(name="order")
-    public Order order(){
-        return new Order();
-    }
 
     @GetMapping
     public String showCreateOrderForm(Model model) {
