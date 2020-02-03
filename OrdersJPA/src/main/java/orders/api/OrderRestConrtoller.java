@@ -5,6 +5,7 @@ import orders.data.OrderRepositoryInteface;
 import orders.domain.Order;
 import orders.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -52,5 +53,21 @@ public class OrderRestConrtoller {
 
     return orderRepo.save(order);
     }
+
+    @PutMapping (path="/{id}", consumes = "application/json")
+    public Order putOrder (@PathVariable("id") Long id, @RequestBody Order putOrder) {
+       return orderRepo.save(putOrder);
+    }
+
+    @DeleteMapping ("/{id}")
+    @ResponseStatus(code=HttpStatus.NO_CONTENT)
+    public void deleteOrder(@PathVariable("id") Long id) {
+        try{
+            orderRepo.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException ex) {}
+
+    }
+
 
 }
