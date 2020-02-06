@@ -11,14 +11,14 @@ import javax.persistence.Table;
 
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+//@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 @Entity
 @Table(name = "components")
 public class Component {
     @Id
-    private final Long id;
-    private final String name;
-    private final Type type;
+    private  Long id;
+    private  String name;
+    private  Type type;
  //   private Date createdAt;
 
     public static enum Type {

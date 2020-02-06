@@ -59,6 +59,7 @@ public class CreateOrderController {
     @PostMapping
     public String processOrder(@Valid Order order, Errors errors, Model model) {
         log.info("Processing order: " + order);
+        log.info("order id in the beggining post 1 page: " + order.getId());
         if (errors.hasFieldErrors("name") || errors.hasFieldErrors("components")) return "createOrder";
         log.info("Processing order: " + order);
         return "redirect:/orders/current";

@@ -40,7 +40,6 @@ public class SaveOrderController {
     @PostMapping
     public String saveOrder(@Valid Order order, Errors errors, @AuthenticationPrincipal User user){
         if (errors.hasFieldErrors("ordertable") || errors.hasFieldErrors("paymentType")) return "saveOrderForm";
-        log.info("Order ready for submitting: " + order);
         order.setUser(user);
         Order savedOrder = orderRepo.save(order);
         log.info("Order submitted: " + savedOrder);

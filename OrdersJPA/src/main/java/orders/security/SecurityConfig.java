@@ -44,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                       .logoutSuccessUrl("/")
                       .and()
                       .csrf()
-                      .ignoringAntMatchers("/api/**");
+                      .ignoringAntMatchers("/api/**", "/h2-console/**", "/api2/**")
+              .and().headers().frameOptions().sameOrigin();
     }
 
 }

@@ -16,13 +16,14 @@ import java.util.List;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDERS_SEQ")
+    @SequenceGenerator(name = "ORDERS_SEQ", sequenceName = "ORDERS_SEQ")
     private  Long id;
 
     @Size(min=1, message="You must input name")
     private  String name;
 
-    @OneToMany (targetEntity = Component.class)
+    @ManyToMany (targetEntity = Component.class)
     @NotNull(message="You must choose at least 1 order component")
     private List<Component> components = new ArrayList<>();
     @ManyToOne
